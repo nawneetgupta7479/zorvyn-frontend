@@ -131,12 +131,4 @@ src/
 
 ---
 
-## 📦 Optional Enhancements Implemented
 
-- [x] Dark mode (default ON)
-- [x] Data persistence (localStorage via Zustand)
-- [x] Export functionality (CSV)
-- [x] Animations (GSAP)
-- [x] Spending Goal tracker card
-- [x] Monthly comparison panel in Insights
-- [x] Viewer mode read-only banner
