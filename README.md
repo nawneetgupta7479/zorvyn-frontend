@@ -68,6 +68,26 @@ Custom hooks at `src/hooks/useGsapAnimations.ts`:
 
 ---
 
+## 🎞️ UI Glimpses
+
+### Dashboard Page
+Beautiful summary cards with KPIs, balance trend chart, and spending breakdown by category.
+![Dashboard](./public/img1.png)
+
+### Transactions Page (Dark Mode)
+Full-featured transactions table with advanced filtering, sorting, search, and add/edit capabilities.
+![Transactions Dark](./public/img2.png)
+
+### Insights Page
+Comprehensive analytics with KPI tiles, monthly comparison panel, and income vs expenses chart.
+![Insights](./public/img3.png)
+
+### Transactions Page (Viewer Mode - Light Theme)
+Read-only transaction view with role-based access control and viewer mode badge.
+![Transactions Light](./public/img4.png)
+
+---
+
 ## 🛠 Tech Stack
 
 | Layer | Technology |
