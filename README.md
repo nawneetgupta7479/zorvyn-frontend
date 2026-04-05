@@ -2,7 +2,7 @@
 
 > A premium financial dashboard built for the **Zorvyn Frontend Task**. Features a stunning **Midnight Aurora** dark theme, real-time financial insights, role-based UI, GSAP animations, and full data persistence.
 
-![Zorvyn Finance](./public/favicon.svg)
+![Zorvyn Finance](./public/img1.png)
 
 ---
 
