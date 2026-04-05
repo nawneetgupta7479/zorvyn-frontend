@@ -35,29 +35,30 @@ const Modal = ({ open, onClose, title, children, className }: ModalProps) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center animate-fade-in">
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-md"
         onClick={onClose}
         aria-hidden="true"
       />
       <div
         className={cn(
-          'relative z-10 w-full max-w-lg rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-2xl p-6 animate-modal-in mx-4',
+          'relative z-10 w-full max-w-lg rounded-2xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700/60 shadow-2xl dark:shadow-black/50 p-6 animate-modal-in mx-4',
           className
         )}
         role="dialog"
         aria-modal="true"
         aria-label={title}
       >
+        <div className="absolute top-0 left-0 right-0 h-px rounded-t-2xl bg-gradient-to-r from-violet-500/50 via-cyan-500/30 to-transparent" />
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+          <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
             {title}
           </h2>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+            className="rounded-xl p-1.5 text-slate-400 hover:text-violet-600 hover:bg-violet-50 dark:hover:text-violet-300 dark:hover:bg-violet-950/50 transition-colors"
             aria-label="Close modal"
           >
-            <X size={18} />
+            <X size={17} />
           </button>
         </div>
         {children}

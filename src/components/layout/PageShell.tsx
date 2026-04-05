@@ -17,13 +17,13 @@ const pageTitles: Record<string, string> = {
 const PageShell = ({ children }: PageShellProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-  const pageTitle = pageTitles[location.pathname] ?? 'FinanceIQ';
+  const pageTitle = pageTitles[location.pathname] ?? 'Zorvyn Finance';
 
   const toggleSidebar = useCallback(() => setSidebarOpen((o) => !o), []);
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors">
+    <div className="min-h-screen bg-[#f0f4ff] dark:bg-[#050914] transition-colors duration-300 aurora-grid">
       <AppSidebar mobileOpen={sidebarOpen} onClose={closeSidebar} />
 
       {/* Main content area — offset by sidebar width */}
@@ -32,6 +32,9 @@ const PageShell = ({ children }: PageShellProps) => {
         <main className="flex-1 p-4 lg:p-6">
           {children}
         </main>
+        <footer className="px-4 lg:px-6 py-3 text-center text-xs text-slate-400 dark:text-slate-600 border-t border-slate-200 dark:border-slate-800/60">
+          © 2026 Zorvyn Finance · Built for the Zorvyn Frontend Task
+        </footer>
       </div>
     </div>
   );

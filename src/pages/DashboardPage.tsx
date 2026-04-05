@@ -5,11 +5,12 @@ import MetricCards from '../components/dashboard/MetricCards';
 import TrendLineChart from '../components/dashboard/TrendLineChart';
 import CategoryDonutChart from '../components/dashboard/CategoryDonutChart';
 import RecentTransactionsMini from '../components/dashboard/RecentTransactionsMini';
-import { Wallet, Plus } from 'lucide-react';
+import SpendingGoalCard from '../components/dashboard/SpendingGoalCard';
+import { Zap, Plus } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 
-/** Dashboard page with metric cards, charts, and recent activity */
+/** Dashboard page — repositioned layout with 4 metric cards, reversed chart order, and spending goal */
 const DashboardPage = () => {
   const {
     visibleTransactions,
@@ -26,17 +27,18 @@ const DashboardPage = () => {
   const activeRole = useRoleStore((s) => s.activeRole);
   const navigate = useNavigate();
 
-  // Empty state — no transactions at all
+  // Empty state
   if (transactions.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] animate-fade-in">
-        <div className="w-20 h-20 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mb-5">
-          <Wallet size={36} className="text-indigo-600 dark:text-indigo-400" />
+        <div className="w-20 h-20 rounded-2xl flex items-center justify-center mb-5"
+          style={{ background: 'linear-gradient(135deg, #7c3aed20, #06b6d420)' }}>
+          <Zap size={36} className="text-violet-500" />
         </div>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-          Welcome to FinanceIQ
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+          Welcome to <span className="gradient-text">Zorvyn Finance</span>
         </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 text-center max-w-md mb-6">
+        <p className="text-sm text-slate-500 dark:text-slate-400 text-center max-w-md mb-6">
           {activeRole === 'admin'
             ? 'Start tracking your finances by adding your first transaction.'
             : 'No transactions recorded yet. Ask an admin to add some entries.'}
@@ -52,8 +54,8 @@ const DashboardPage = () => {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Metric cards */}
+    <div className="space-y-5">
+      {/* Metric cards — 4-column on lg */}
       <MetricCards
         currentBalance={currentBalance}
         totalIncome={totalIncome}
@@ -63,18 +65,25 @@ const DashboardPage = () => {
         expenseDelta={expenseDelta}
       />
 
-      {/* Charts row */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <div className="lg:col-span-3">
-          <TrendLineChart monthlyBreakdown={monthlyBreakdown} />
-        </div>
+      {/* Charts row — Donut LEFT (2/5), Trend RIGHT (3/5) — reversed from original */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
         <div className="lg:col-span-2">
           <CategoryDonutChart categoryTotals={categoryTotals} />
         </div>
+        <div className="lg:col-span-3">
+          <TrendLineChart monthlyBreakdown={monthlyBreakdown} />
+        </div>
       </div>
 
-      {/* Recent activity */}
-      <RecentTransactionsMini transactions={visibleTransactions} />
+      {/* Bottom row — Recent activity + Spending goal */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="lg:col-span-2">
+          <RecentTransactionsMini transactions={visibleTransactions} />
+        </div>
+        <div className="lg:col-span-1">
+          <SpendingGoalCard totalExpenses={totalExpenses} />
+        </div>
+      </div>
     </div>
   );
 };

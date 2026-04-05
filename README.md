@@ -1,100 +1,142 @@
-# FinanceIQ
+# Zorvyn Finance — Personal Finance Dashboard
 
-## What This Is
+> A premium financial dashboard built for the **Zorvyn Frontend Task**. Features a stunning **Midnight Aurora** dark theme, real-time financial insights, role-based UI, GSAP animations, and full data persistence.
 
-FinanceIQ is a personal finance tracking dashboard built with React and TypeScript. It lets you record income and expenses, visualize spending trends with interactive charts, and gain insights into your financial habits — all wrapped in a polished, responsive UI with dark mode support and role-based access control.
+![Zorvyn Finance](./public/favicon.svg)
 
-## Live Preview
+---
 
-_(placeholder URL)_
+## 🌌 Theme: Midnight Aurora
 
-## Feature Highlights
+| Token | Value |
+|-------|-------|
+| Primary | Violet `#7c3aed` |
+| Accent | Electric Cyan `#06b6d4` |
+| Background (Dark) | Deep Navy `#050914` |
+| Background (Light) | Soft `#f0f4ff` |
+| Income | Neon Mint `#34d399` |
+| Expense | Coral Rose `#fb7185` |
+| Font | Plus Jakarta Sans |
 
-- **Dashboard Overview** — Four KPI metric cards (balance, income, expenses, transaction count) with month-over-month deltas
-- **Balance Trend Chart** — Smooth area chart showing cumulative balance across six months
-- **Category Donut Chart** — Interactive pie chart breaking down expenses by category with custom legend
-- **Recent Activity Feed** — Quick-glance list of the five most recent transactions
-- **Full Transaction Table** — Sortable, filterable table with inline edit/delete (admin only)
-- **Advanced Filtering** — Keyword search, kind toggle, category dropdown, date range, sort controls
-- **Add/Edit Modal** — Validated form with radio-style type selector and category picker
-- **Insights Page** — Top spending category, most active category, average spend, savings rate tiles
-- **Income vs Expense Bar Chart** — Grouped monthly comparison with INR-formatted axes
-- **Category Breakdown Table** — Ranked expense categories with inline progress bars
-- **Role-Based Access** — Admin can create/edit/delete; Viewer is read-only
-- **Dark Mode** — System-aware with manual toggle, persisted to localStorage
-- **CSV Export** — Download filtered transactions as a CSV file
-- **Responsive Design** — Mobile drawer, tablet icon-only sidebar, desktop full sidebar
-- **Persistent State** — Transactions and role survive page refreshes via localStorage
+---
 
-## Why These Tools
+## ✨ Features
 
-- **Vite** — Fastest dev server with instant HMR; minimal config needed for React + TypeScript
-- **React + TypeScript** — Component-based architecture with compile-time type safety eliminates entire categories of runtime bugs
-- **Tailwind CSS v4** — Utility-first styling with the new CSS-native engine; dark mode via class strategy gives full control
-- **Zustand** — Minimal boilerplate state management with built-in persist middleware — far simpler than Redux for this scale
-- **Recharts** — Declarative charting that integrates naturally with React's component model
-- **React Router** — De facto standard for client-side routing in React SPAs
-- **date-fns** — Tree-shakable date utilities; much lighter than moment.js
-- **lucide-react** — Consistent, well-designed icon set as React components
-- **clsx + tailwind-merge** — Safe conditional class composition without style conflicts
+### 1. Dashboard Overview
+- **4 Summary Cards**: Current Balance, Total Income, Total Expenses, Transaction Count — each with month-over-month delta indicators
+- **Balance Trend Chart**: Cumulative area chart with violet→cyan gradient stroke across all months
+- **Spending by Category**: Donut chart with custom legend showing top-6 categories
+- **Recent Activity**: 5 most recent transactions with category icons
+- **Spending Goal Tracker**: Visual progress bar card with color-coded status (green/amber/red)
 
-## Running Locally
+### 2. Transactions Section
+- **Full table view** with Date, Description, Category, Type, Amount columns
+- **Filtering**: Keyword search, type toggle (All / Income / Expense), category dropdown, date range picker
+- **Sorting**: Click Date or Amount headers to sort ascending/descending
+- **Export**: Download visible transactions as CSV
 
-### Prerequisites
+### 3. Role-Based UI
+Two roles simulated on the frontend — switch via the pill button in the top navbar:
 
-- Node.js 18+ and npm 9+
+| Feature | Admin | Viewer |
+|---------|-------|--------|
+| View all data | ✅ | ✅ |
+| Add Transaction | ✅ | ❌ |
+| Edit Transaction | ✅ | ❌ |
+| Delete Transaction | ✅ | ❌ |
+| Read-only banner | — | ✅ |
 
-### Steps
+### 4. Insights Section
+- **4 KPI Tiles**: Top spending category, most transactions by category, avg monthly spend, savings rate
+- **Monthly Comparison Panel**: Side-by-side current vs previous month income/expenses with deltas
+- **Income vs Expenses Bar Chart**: Grouped monthly bars (neon mint + coral rose)
+- **Category Breakdown Table**: Full table with category icons, amounts, percentages, and mini progress bars
+
+### 5. State Management
+- **Zustand** stores for:
+  - `transactionStore` — CRUD operations with **localStorage persistence** (`fin-transactions`)
+  - `filterStore` — keyword, kind, category, date range, sort
+  - `roleStore` — active role (admin/viewer)
+- Custom hook `useDerivedFinancials` computes all metrics in a single memoized pipeline
+
+### 6. Animations (GSAP)
+Custom hooks at `src/hooks/useGsapAnimations.ts`:
+- **`useStaggerEntrance`** — cards and table rows slide up with staggered 80ms delay
+- **`useFadeScaleEntrance`** — charts fade in with a subtle scale effect
+- **`useSlideInLeft`** — sidebar nav items cascade in from the left on mount
+- **`useCountUp`** — number counter animation for metric values
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | React 19 + Vite |
+| Language | TypeScript |
+| Styling | TailwindCSS v4 |
+| Charts | Recharts |
+| Animation | GSAP |
+| State | Zustand |
+| Routing | React Router v7 |
+| Persistence | localStorage (via Zustand persist) |
+| Icons | Lucide React |
+| Dates | date-fns |
+
+---
+
+## 🚀 Getting Started
 
 ```bash
-# Clone the repository
-git clone <repo-url>
-cd <repo-folder>
-
 # Install dependencies
 npm install
 
-# Start the development server
+# Start dev server
 npm run dev
+
+# Build for production
+npm run build
 ```
 
-The app will be available at `http://localhost:5173`.
+---
 
-## How Roles Work
+## 📁 Project Structure
 
-FinanceIQ supports two roles:
+```
+src/
+├── components/
+│   ├── dashboard/       # MetricCards, TrendLineChart, CategoryDonutChart, RecentTransactionsMini, SpendingGoalCard
+│   ├── insights/        # InsightTile, IncomeExpenseBarChart, CategoryBreakdownTable
+│   ├── layout/          # AppSidebar, TopNavbar, PageShell
+│   ├── transactions/    # TransactionList, FilterToolbar, TransactionFormModal
+│   └── ui/              # Button, Card, Badge, Modal, TextInput, SelectInput
+├── constants/           # categoryConfig (visual config per spending category)
+├── data/                # seedTransactions (initial demo data)
+├── hooks/               # useDerivedFinancials, useGsapAnimations
+├── pages/               # DashboardPage, TransactionsPage, InsightsPage
+├── store/               # transactionStore, filterStore, roleStore (Zustand)
+├── types/               # finance.ts (TypeScript types)
+└── utils/               # aggregations, currency, cn, fileExport
+```
 
-| Role     | Capabilities                                                |
-|----------|-------------------------------------------------------------|
-| **Admin**  | Add, edit, and delete transactions; full access to all views |
-| **Viewer** | Read-only access to dashboard, transactions table, and insights |
+---
 
-Switch roles using the dropdown in the top-right navbar. The selected role persists in `localStorage` so it survives page refreshes. When in Viewer mode, all mutation controls (add button, edit/delete icons, form modal) are hidden — even if the URL is accessed directly.
+## 🎨 Design Decisions
 
-## State Architecture
+- **Dark mode default** — The Midnight Aurora theme looks best in dark mode (F key). Auto-applies on first load.
+- **Layout flip** — Unlike the original, the Donut chart is on the **left** and Trend chart on the **right** for visual distinctiveness.
+- **Role as toggle** — The role switcher is a pill toggle button instead of a dropdown for a cleaner feel.
+- **Gradient scrollbar** — Custom violet→cyan gradient scrollbar throughout.
+- **Aurora grid background** — Subtle SVG grid pattern in the page background for depth.
 
-The app uses three separate Zustand stores, each with a single responsibility:
+---
 
-1. **`transactionStore`** — Source of truth for all transaction data. Exposes `addEntry`, `modifyEntry`, and `removeEntry` actions. Persisted to `localStorage` under the key `fin-transactions` so data survives refreshes.
+## 📦 Optional Enhancements Implemented
 
-2. **`filterStore`** — Holds ephemeral UI state: search keyword, kind/category filters, date range, sort field and direction. Not persisted — filters reset on page reload, which is the expected UX.
-
-3. **`roleStore`** — Stores the active user role (`admin` | `viewer`). Persisted under `fin-role` so the user doesn't have to re-select their role each time.
-
-Derived data (filtered transactions, totals, breakdowns) lives in the `useDerivedFinancials` hook which reads from both transaction and filter stores and memoizes all computations.
-
-## Assumptions
-
-- Currency is Indian Rupees (₹) throughout
-- Amounts are always stored as positive numbers; the `kind` field determines debit vs credit
-- Seed data covers October 2025 – March 2026 (six months prior to the development date)
-- UUIDs are generated client-side; no backend integration
-- The app is a single-user tool; no authentication flow is included
-- Dark mode defaults to system preference on first visit
-
-## What I'd Add Next
-
-1. **Data persistence with a backend** — Replace localStorage with a REST/GraphQL API backed by a database for multi-device sync
-2. **Budget goals** — Let users set monthly spending limits per category with progress indicators and alerts
-3. **Recurring transactions** — Auto-generate entries for fixed monthly expenses like rent, subscriptions, and EMIs
-4. **Multi-currency support** — Allow transactions in different currencies with real-time conversion rates
+- [x] Dark mode (default ON)
+- [x] Data persistence (localStorage via Zustand)
+- [x] Export functionality (CSV)
+- [x] Animations (GSAP)
+- [x] Spending Goal tracker card
+- [x] Monthly comparison panel in Insights
+- [x] Viewer mode read-only banner

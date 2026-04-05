@@ -130,17 +130,17 @@ const TransactionFormModal = ({ open, onClose, editingTransaction }: Transaction
 
         {/* Type radio group */}
         <div>
-          <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">Type</p>
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Type</p>
           <div className="flex gap-3">
             {(['income', 'expense'] as TransactionKind[]).map((kind) => (
               <label
                 key={kind}
-                className={`flex-1 flex items-center justify-center gap-2 rounded-xl border-2 py-2.5 text-sm font-medium cursor-pointer transition-all ${
+                className={`flex-1 flex items-center justify-center gap-2 rounded-xl border-2 py-2.5 text-sm font-semibold cursor-pointer transition-all ${
                   form.kind === kind
                     ? kind === 'income'
-                      ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-600'
-                      : 'border-rose-500 bg-rose-50 text-rose-700 dark:bg-rose-950/30 dark:text-rose-300 dark:border-rose-600'
-                    : 'border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-300'
+                      ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-500'
+                      : 'border-rose-500 bg-rose-50 text-rose-700 dark:bg-rose-950/30 dark:text-rose-300 dark:border-rose-500'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:border-violet-300 dark:hover:border-violet-700'
                 }`}
               >
                 <input
